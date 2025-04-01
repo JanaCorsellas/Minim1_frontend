@@ -1,0 +1,343 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Estilos para la lista de comentarios */
+  .comment-container {
+    margin-top: 30px;
+  }
+  
+  .comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .comment-header h3 {
+    margin: 0;
+    color: #333;
+  }
+  
+  .comment-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+  }
+  
+  .comment-item {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px;
+    background-color: white;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .comment-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .comment-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .comment-info .author {
+    font-weight: bold;
+    color: #333;
+    font-size: 14px;
+  }
+  
+  .comment-info .date {
+    color: #888;
+    font-size: 12px;
+  }
+  
+  .comment-content {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  /* Estilos para el formulario de nuevo comentario */
+  .new-comment-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .new-comment-form label {
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: normal;
+    color: #333;
+  }
+  
+  .new-comment-form textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    resize: none;
+  }
+  
+  .new-comment-form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+  }
+  
+  .new-comment-form button:hover {
+    background-color: #43a047;
+  }
+  
+  /* Estilos para los botones de acción dentro de cada comentario */
+  .comment-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .comment-actions .btn-edit, .comment-actions .btn-delete {
+    background-color: #2196F3;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s;
+  }
+  
+  .comment-actions .btn-edit {
+    background-color: #4CAF50;
+  }
+  
+  .comment-actions .btn-delete {
+    background-color: #F44336;
+  }
+  
+  .comment-actions .btn-edit:hover, .comment-actions .btn-delete:hover {
+    opacity: 0.9;
+  }
+  
+  /* Estilos para la sección de sin comentarios */
+  .no-comments {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+  }
+  
+  .empty-state h3 {
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .empty-state p {
+    color: #777;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos para el indicador de carga en los comentarios */
+  .loading-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+  }
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Estilos para el modal de edición de comentario */
+  .edit-comment-modal {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 500px;
+    max-height: calc(100vh - 40px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .edit-comment-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .edit-comment-modal-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .edit-comment-modal-body {
+    padding: 15px;
+    background-color: white;
+    overflow-y: auto;
+    flex: 1;
+  }
+  
+  .edit-comment-form .form-group {
+    margin-bottom: 12px;
+  }
+  
+  .edit-comment-form label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: normal;
+    color: #333;
+    font-size: 14px;
+  }
+  
+  .edit-comment-form .form-control {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.4;
+    box-sizing: border-box;
+  }
+  
+  .edit-comment-form .form-control:focus {
+    border-color: #4CAF50;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+  }
+  
+  .edit-comment-form .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 15px;
+  }
+  
+  .edit-comment-form .btn-cancel, .edit-comment-form .btn-save {
+    padding: 7px 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+  }
+  
+  .edit-comment-form .btn-cancel {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .edit-comment-form .btn-save {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .edit-comment-form .btn-cancel:hover {
+    background-color: #e53935;
+  }
+  
+  .edit-comment-form .btn-save:hover {
+    background-color: #43a047;
+  }
+  
+  /* Media Queries para la adaptabilidad en dispositivos móviles */
+  @media (max-width: 576px) {
+    .edit-comment-modal, .modal-content {
+      max-width: 100%;
+      border-radius: 0;
+      height: 100vh;
+      margin: 0;
+    }
+  
+    .comment-item {
+      padding: 10px;
+    }
+  
+    .new-comment-form textarea {
+      height: 80px;
+    }
+  
+    .new-comment-form button {
+      font-size: 13px;
+      padding: 8px 16px;
+    }
+  
+    .comment-actions .btn-edit, .comment-actions .btn-delete {
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+  }
+  
+  @media (min-width: 577px) and (max-width: 768px) {
+    .edit-comment-modal, .modal-content {
+      max-width: 90%;
+    }
+  
+    .edit-comment-form .form-control {
+      font-size: 13px;
+      padding: 6px 8px;
+    }
+  
+    .comment-item {
+      padding: 12px;
+    }
+  }
+  

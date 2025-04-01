@@ -1,0 +1,142 @@
+<div class="container">
+    <!-- Botó per crear comentari -->
+    <div class="action-buttons">
+      <button class="btn-create" (click)="showCreateCommentForm()">
+        <i class="material-icons">add</i> Crear nou comentari
+      </button>
+      <button class="btn-refresh-comments" (click)="getComments()">
+        <i class="material-icons">refresh</i> Actualitzar
+      </button>
+    </div>
+  
+    <!-- Llista de comentaris -->
+    <div class="comments-container" *ngIf="loadedComments">
+      <h2>Comentaris</h2>
+  
+      <!-- Contenidor de comentaris -->
+      <div class="comments-list">
+        <div *ngFor="let comment of paginatedComments; trackBy: trackByCommentId" class="comment-card">
+          <div class="comment-header">
+            <div class="comment-author">
+              <strong>{{ comment.author || 'Anònim' }}</strong>
+            </div>
+            <div class="comment-date">
+              <span>{{ comment.date | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+          </div>
+          <div class="comment-body">
+            <p>{{ comment.text }}</p>
+          </div>
+          <div class="comment-actions">
+            <button class="btn-edit" (click)="updateComment(comment)">
+              <i class="material-icons">edit</i> Editar
+            </button>
+            <button class="btn-delete" (click)="deleteComment(comment)">
+              <i class="material-icons">delete</i> Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Missatge si no hi ha comentaris -->
+      <div *ngIf="filteredComments.length === 0" class="no-comments">
+        <div class="empty-state">
+          <i class="material-icons large">comment</i>
+          <h3>No s'han trobat comentaris</h3>
+          <p>No hi ha comentaris que coincideixin amb els criteris de cerca.</p>
+          <button class="btn-create" (click)="showCreateCommentForm()">
+            <i class="material-icons">add</i> Crear nou comentari
+          </button>
+        </div>
+      </div>
+  
+      <!-- Paginació -->
+      <div class="pagination-controls" *ngIf="totalPages > 1">
+        <button
+          class="pagination-btn"
+          [disabled]="currentPage === 1"
+          (click)="changePage(currentPage - 1)">
+          « Anterior
+        </button>
+  
+        <span *ngFor="let page of pages" class="page-number" [class.active]="page === currentPage" (click)="changePage(page)">
+          {{page}}
+        </span>
+  
+        <button
+          class="pagination-btn"
+          [disabled]="currentPage === totalPages"
+          (click)="changePage(currentPage + 1)">
+          Siguiente »
+        </button>
+      </div>
+  
+      <div class="pagination-info" *ngIf="totalComments > 0">
+        Mostrant pàgina {{ currentPage }} de {{ totalPages }}
+        ({{ totalComments }} comentaris en total)
+      </div>
+    </div>
+  
+    <!-- Crear comentari -->
+    <div class="full-screen-form" *ngIf="showCreateModal">
+      <app-comment-create (commentCreated)="onCommentCreated($event)"></app-comment-create>
+    </div>
+  
+    <!-- Editar comentari -->
+    <div class="full-screen-form" *ngIf="showEditModal && selectedComment">
+      <div class="edit-modal">
+        <div class="edit-modal-header">
+          <h2>Editar Comentari</h2>
+          <button class="close-btn" (click)="showEditModal = false">&times;</button>
+        </div>
+        <div class="edit-modal-body">
+          <form class="edit-form">
+            <div class="form-group">
+              <label for="edit-author">Autor</label>
+              <input type="text" id="edit-author" [(ngModel)]="selectedComment.author" name="author" class="form-control">
+            </div>
+  
+            <div class="form-group">
+              <label for="edit-text">Comentari</label>
+              <textarea id="edit-text" [(ngModel)]="selectedComment.content" name="text" class="form-control"></textarea>
+            </div>
+  
+            <div class="form-actions">
+              <button type="button" class="btn-cancel" (click)="showEditModal = false">Cancelar</button>
+              <button type="button" class="btn-save" (click)="onCommentEdited(true)">Guardar canvis</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Detalls del comentari -->
+    <div class="full-screen-form view-details" *ngIf="showViewModal && selectedComment">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Detalls del Comentari</h2>
+          <button class="close-btn" (click)="closeViewModal()">×</button>
+        </div>
+  
+        <div class="modal-body comment-details">
+          <div class="comment-profile">
+            <div class="comment-author">
+              <strong>{{ selectedComment.author || 'Anònim' }}</strong>
+            </div>
+          </div>
+  
+          <div class="details-container">
+            <div class="detail-item">
+              <div class="detail-label">Comentari:</div>
+              <div class="detail-value">{{ selectedComment.content }}</div>
+            </div>
+          </div>
+  
+          <div class="form-actions">
+            <button type="button" class="btn-back" (click)="closeViewModal()">Tornar a la llista</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

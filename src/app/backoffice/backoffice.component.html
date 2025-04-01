@@ -7,6 +7,9 @@
     <button class="nav-tab" [class.active]="activeTab === 'activities'" (click)="setActiveTab('activities')">
       <i class="material-icons">directions_run</i> Activitats
     </button>
+    <button class="nav-tab" [class.active]="activeTab === 'comments'" (click)="setActiveTab('comments')">
+      <i class="material-icons">comment</i> Comentaris
+    </button>
   </div>
   
   <!-- Visible secció d'usuaris (quan activeTab === 'users') -->
@@ -17,5 +20,10 @@
   <!-- Secció d'activitats (visible quan activeTab === 'activities') -->
   <div *ngIf="activeTab === 'activities'">
     <app-activities></app-activities>
+  </div>
+
+  <!-- Secció de comentaris (visible quan activeTab === 'comentaris') -->
+  <div *ngIf="activeTab === 'comentaris'">
+    <app-comments></app-comments>
   </div>
 </div>
