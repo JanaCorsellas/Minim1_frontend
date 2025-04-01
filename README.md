@@ -1,6 +1,6 @@
 COMENTARIS MÍNIM 1
 
-El meu propòsit era fer un nou apartat per filtrar tots els comentaris. Tanmateix, no he aconseguit que em funcionés i no se on pot estar l'error.
+El meu propòsit era fer un nou apartat per filtrar tots els comentaris. Tanmateix, no he aconseguit que em funcionés i no trobo l'error, segurament serà alguna ruta.
 
 El component de Comentaris està creat, i també ho està el de crear nous comentaris, però no he aconseguit que em surti i no tinc temps, per tant de moment em surt la pàgina en blanc. Segurament sigui algun fallo en les rutes.
 
