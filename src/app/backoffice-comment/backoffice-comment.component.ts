@@ -48,30 +48,32 @@ export class CommentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('Inicializando componente de comentarios');
     this.getComments();
   }
 
   getComments(): void {
+    console.log('Obteniendo comentarios');
     this.loadedComments = false;
     this.loading = true;
 
-    this.commentService.getPaginatedComments('defaultActivityId', this.currentPage, this.itemsPerPage)
+    this.commentService.getPaginatedComments(this.currentPage, this.itemsPerPage)
       .subscribe({
         next: (response) => {
           console.log('Respuesta del servidor:', response);
-          if (response.comments && response.comments.length > 0) {
-            this.comments = response.comments.map((comment: Comment) => ({
-              ...comment,
-              isEddited: comment.isEddited !== undefined ? comment.isEddited : false
-            }));
-            console.log('Comentarios procesados:', this.comments);
-            this.totalComments = response.totalComments;
-            this.totalPages = response.totalPages;
+          if (response && response.comments) {
+            this.comments = response.comments;
+            this.filteredComments = [...this.comments];
+            this.paginatedComments = this.filteredComments;
+            
+            // También actualiza la paginación
+            this.totalComments = response.totalComments || 0;
+            this.totalPages = response.totalPages || 1;
           } else {
-            console.log('No se han encontrado comentarios, usando datos simulados.');
-            this.testPagination();
+            console.warn('La respuesta no contiene comentarios:', response);
+            this.paginatedComments = [];
           }
-          this.generatePageNumbers();
+          
           this.loading = false;
           this.loadedComments = true;
         },
@@ -86,6 +88,8 @@ export class CommentComponent implements OnInit {
           this.loadedComments = true;
         }
       });
+    console.log('Comentarios recibidos:', this.comments);
+    console.log('Comentarios filtrados:', this.filteredComments);
   }
 
   // Método para simular la paginación con datos de prueba
@@ -99,6 +103,7 @@ export class CommentComponent implements OnInit {
     // Calcular el total de comentarios y páginas
     this.totalComments = this.allMockComments.length;
     this.totalPages = Math.ceil(this.totalComments / this.itemsPerPage);
+    console.log('Comentarios paginados:', this.paginatedComments);
   }
 
   generatePageNumbers(): void {

@@ -27,6 +27,7 @@ export class BackOfficeComponent implements OnInit {
 
   // Mètode per canviar entre pestanyes
   setActiveTab(tab: string): void {
+    console.log('Cambiando a la pestaña:', tab);
     this.activeTab = tab;
   }
 }

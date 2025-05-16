@@ -81,7 +81,8 @@ export class CommentCreateComponent implements OnInit {
     this.commentCreated.emit(false); // Emitir false si se cancela la creación del comentario
   }
 
-  hasError(controlName: string): boolean {
-    return !!this.commentForm.get(controlName)?.invalid && !!this.commentForm.get(controlName)?.touched;
+  hasError(controlName: string, errorType: string): boolean {
+    return !!this.commentForm.get(controlName)?.hasError(errorType) && 
+           !!(this.commentForm.get(controlName)?.touched || this.commentForm.get(controlName)?.dirty);
   }
 }

@@ -12,13 +12,12 @@ export class CommentService {
   constructor(private http: HttpClient) { }
 
   // Obtener comentarios paginados de una actividad
-  getPaginatedComments(activityId: string, page: number = 1, limit: number = 10): Observable<any> {
+  getPaginatedComments(page: number = 1, limit: number = 10): Observable<any> {
     let params = new HttpParams()
       .set('page', page.toString())
       .set('limit', limit.toString());
 
-    // Llamada HTTP GET para obtener los comentarios
-    return this.http.get<any>(`${this.apiUrl}/activity/${activityId}`, { params });
+      return this.http.get<any>(`${this.apiUrl}`, { params });
   }
 
   // Buscar comentarios por contenido

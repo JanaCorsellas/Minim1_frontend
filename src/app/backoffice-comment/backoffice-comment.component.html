@@ -18,14 +18,14 @@
         <div *ngFor="let comment of paginatedComments; trackBy: trackByCommentId" class="comment-card">
           <div class="comment-header">
             <div class="comment-author">
-              <strong>{{ comment.author || 'Anònim' }}</strong>
+              <strong>{{ (comment.author && comment.author.username) || 'Anònim' }}</strong>
             </div>
             <div class="comment-date">
-              <span>{{ comment.date | date:'dd/MM/yyyy HH:mm' }}</span>
+              <span>{{ comment.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
             </div>
           </div>
           <div class="comment-body">
-            <p>{{ comment.text }}</p>
+            <p>{{ comment.content }}</p>
           </div>
           <div class="comment-actions">
             <button class="btn-edit" (click)="updateComment(comment)">
